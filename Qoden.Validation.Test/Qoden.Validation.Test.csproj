@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+		<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+		<ProjectGuid>{F0130788-DF8A-497E-AFC2-41B7F5CD035E}</ProjectGuid>
+		<OutputType>Library</OutputType>
+		<RootNamespace>Qoden.Validation.Test</RootNamespace>
+		<AssemblyName>Qoden.Validation.Test</AssemblyName>
+		<TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<DebugSymbols>true</DebugSymbols>
+		<DebugType>full</DebugType>
+		<Optimize>false</Optimize>
+		<OutputPath>bin\Debug</OutputPath>
+		<DefineConstants>DEBUG;</DefineConstants>
+		<ErrorReport>prompt</ErrorReport>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<Optimize>true</Optimize>
+		<OutputPath>bin\Release</OutputPath>
+		<ErrorReport>prompt</ErrorReport>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+	<ItemGroup>
+		<Reference Include="System" />
+		<Reference Include="nunit.framework">
+			<HintPath>..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+		</Reference>
+		<Reference Include="Qoden.Format">
+		  <HintPath>..\..\packages\Qoden.Format.1.0.0-beta10\lib\netstandard1.6\Qoden.Format.dll</HintPath>
+		</Reference>
+		<Reference Include="Qoden.Reflection">
+		  <HintPath>..\..\packages\Qoden.Reflection.1.0.0-beta10\lib\netstandard1.6\Qoden.Reflection.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="packages.config" />
+		<None Include="Qoden.Validation.Test.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Qoden.Validation\Qoden.Validation.csproj">
+			<Project>{9EA7946E-3558-46DF-8AAE-BDAEE19F787D}</Project>
+			<Name>Qoden.Validation</Name>
+		</ProjectReference>
+	</ItemGroup>
+	<ItemGroup>
+		<Reference Include="System.Runtime" />
+		<Reference Include="System.ObjectModel" />
+		<Reference Include="System.Linq.Expressions" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="src\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Include="src\BasicFunctionsTest.cs" />
+	  <Compile Include="src\ComparableValidationsTest.cs" />
+	  <Compile Include="src\ConversionValidationTest.cs" />
+	  <Compile Include="src\EmptyValidationTest.cs" />
+	  <Compile Include="src\EqualityValidationTest.cs" />
+	  <Compile Include="src\LengthValidationTest.cs" />
+	  <Compile Include="src\NullableValidationTest.cs" />
+	  <Compile Include="src\ValidatorTest.cs" />
+	</ItemGroup>
+	<Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

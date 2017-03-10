@@ -1,11 +1,12 @@
-﻿using Xunit;
-using XAssert = Xunit.Assert;
+using NUnit.Framework;
+using XAssert = NUnit.Framework.Assert;
 
 namespace Qoden.Validation.Test
 {
+	[TestFixture]
     public class EmptyValidationTest
     {
-        [Fact]
+        [Test]
         public void Check_EmptyString()
         {
             var v = new Validator();
@@ -16,15 +17,15 @@ namespace Qoden.Validation.Test
 
             var check = v.CheckValue("", "Empty").NotEmpty();
             XAssert.True(check.HasError);
-            XAssert.Equal(check.Error["Validator"], "NotEmpty");
+            XAssert.AreEqual(check.Error["Validator"], "NotEmpty");
 
             check = v.CheckValue<string>(null, "Null").NotNull();
             XAssert.True(check.HasError);
-            XAssert.Equal(check.Error["Validator"], "NotNull");
+            XAssert.AreEqual(check.Error["Validator"], "NotNull");
 
             check = v.CheckValue("", "NotNull").IsNull();
             XAssert.True(check.HasError);
-            XAssert.Equal(check.Error["Validator"], "IsNull");
+            XAssert.AreEqual(check.Error["Validator"], "IsNull");
         }
     }
 }

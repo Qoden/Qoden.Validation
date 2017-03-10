@@ -9,7 +9,17 @@ namespace Qoden.Validation
         public static Check<T> ConvertTo<T>(this Check<string> check, string message = ConversionMessage,
             IFormatProvider format = null, Action<Error> onError = null)
         {
-            var typeCode = Type.GetTypeCode(typeof(T));
+			var vv = default(T);
+			TypeCode typeCode;
+			if (vv is IConvertible)
+			{
+				typeCode = ((IConvertible)vv).GetTypeCode();
+			}
+			else 
+			{
+				typeCode = TypeCode.Object;
+			}
+
             Exception ex;
             try
             {

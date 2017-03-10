@@ -1,12 +1,13 @@
-﻿using System;
-using Xunit;
-using XAssert = Xunit.Assert;
+using System;
+using NUnit.Framework;
+using XAssert = NUnit.Framework.Assert;
 
 namespace Qoden.Validation.Test
 {
+	[TestFixture]
     public class ConversionValidationTest
     {
-        [Fact]
+        [Test]
         public void Check_ConvertTo()
         {
             var v = new Validator();
@@ -14,15 +15,15 @@ namespace Qoden.Validation.Test
             initial.OnErrorAction = error => { };
             var converted = initial.ConvertTo<int>();
             XAssert.False(v.HasErrors);
-            XAssert.Equal(initial.Key, converted.Key);
-            XAssert.Equal(initial.OnErrorAction, converted.OnErrorAction);
-            XAssert.Equal(initial.Validator, converted.Validator);
+            XAssert.AreEqual(initial.Key, converted.Key);
+            XAssert.AreEqual(initial.OnErrorAction, converted.OnErrorAction);
+            XAssert.AreEqual(initial.Validator, converted.Validator);
 
             var check = v.CheckValue("abc", "ABC").ConvertTo<int>();
             XAssert.True(check.HasError);
             XAssert.True(check.Error["Exception"] is Exception);
-            XAssert.Equal(check.Error["Value"], "abc");
-            XAssert.Equal(check.Error["Validator"], "ConvertTo");
+            XAssert.AreEqual(check.Error["Value"], "abc");
+            XAssert.AreEqual(check.Error["Validator"], "ConvertTo");
         }
     }
 }

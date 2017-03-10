@@ -1,11 +1,12 @@
-﻿using Xunit;
-using XAssert = Xunit.Assert;
+using NUnit.Framework;
+using XAssert = NUnit.Framework.Assert;
 
 namespace Qoden.Validation.Test
 {
+	[TestFixture]
     public class EqualityValidationTest
     {
-        [Fact]
+        [Test]
         public void Check_IsTrue_IsFalse()
         {
             var v = new Validator();
@@ -15,28 +16,28 @@ namespace Qoden.Validation.Test
             XAssert.False(v.HasErrors);
 
             var falseCheck = v.CheckValue(false, "One").IsTrue();
-            XAssert.Equal(falseCheck.Error["Value"], false);
-            XAssert.Equal(falseCheck.Error["Expected"], true);
-            XAssert.Equal(falseCheck.Error["Validator"], "IsTrue");
+            XAssert.AreEqual(falseCheck.Error["Value"], false);
+            XAssert.AreEqual(falseCheck.Error["Expected"], true);
+            XAssert.AreEqual(falseCheck.Error["Validator"], "IsTrue");
 
             var trueCheck = v.CheckValue(true, "One").IsFalse();
-            XAssert.Equal(trueCheck.Error["Value"], true);
-            XAssert.Equal(trueCheck.Error["Expected"], false);
-            XAssert.Equal(trueCheck.Error["Validator"], "IsFalse");
+            XAssert.AreEqual(trueCheck.Error["Value"], true);
+            XAssert.AreEqual(trueCheck.Error["Expected"], false);
+            XAssert.AreEqual(trueCheck.Error["Validator"], "IsFalse");
         }
 
-        [Fact]
+        [Test]
         public void Check_EqualsTo()
         {
             var v = new Validator();
             v.CheckValue("1", "One").EqualsTo("1");
             var oneCheck = v.CheckValue("1", "One").EqualsTo("2");
-            XAssert.Equal(oneCheck.Error["Value"], "1");
-            XAssert.Equal(oneCheck.Error["Expected"], "2");
-            XAssert.Equal(oneCheck.Error["Validator"], "EqualsTo");
+            XAssert.AreEqual(oneCheck.Error["Value"], "1");
+            XAssert.AreEqual(oneCheck.Error["Expected"], "2");
+            XAssert.AreEqual(oneCheck.Error["Validator"], "EqualsTo");
         }
 
-        [Fact]
+        [Test]
         public void Check_NotEquals()
         {
             var v = new Validator();
@@ -44,10 +45,10 @@ namespace Qoden.Validation.Test
             XAssert.True(check.IsValid);
             check.NotEqualsTo("AAA");
             XAssert.False(check.IsValid);
-            XAssert.Equal(check.Error["Validator"], "NotEqualsTo");
+            XAssert.AreEqual(check.Error["Validator"], "NotEqualsTo");
         }
 
-        [Fact]
+        [Test]
         public void Check_In()
         {
             var v = new Validator();
@@ -55,12 +56,12 @@ namespace Qoden.Validation.Test
             XAssert.True(v.IsValid);
             var check = v.CheckValue("AAA").In(new[] { "CCCC", "ZZZ" });
             XAssert.False(v.IsValid);
-            XAssert.Equal(check.Error["Validator"], "In");
+            XAssert.AreEqual(check.Error["Validator"], "In");
 
             
         }
 
-        [Fact]
+        [Test]
         public void Check_NotIn()
         {
             var v = new Validator();
@@ -68,7 +69,7 @@ namespace Qoden.Validation.Test
             XAssert.True(v.IsValid);
             var check = v.CheckValue("CCCC").NotIn(new[] { "CCCC", "ZZZ" });
             XAssert.False(v.IsValid);
-            XAssert.Equal(check.Error["Validator"], "NotIn");
+            XAssert.AreEqual(check.Error["Validator"], "NotIn");
         }
     }
 }

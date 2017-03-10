@@ -1,11 +1,11 @@
-﻿using Xunit;
-using XAssert = Xunit.Assert;
+﻿using NUnit.Framework;
+using XAssert = NUnit.Framework.Assert;
 
 namespace Qoden.Validation.Test
 {
     public class ValidatorTest
     {
-        [Fact]
+        [Test]
         public void EmptyErrorListValid()
         {
             var errors = new Validator();
@@ -13,7 +13,7 @@ namespace Qoden.Validation.Test
             XAssert.False(errors.HasErrors);
         }
 
-        [Fact]
+        [Test]
         public void ErrorListCanBeInspected()
         {
             var errors = new Validator();
@@ -25,22 +25,22 @@ namespace Qoden.Validation.Test
             errors.Add(key21);
 
             var key1Errors = errors.ErrorsForKey("Key1");
-            XAssert.Equal(key1Errors, new[] { key11, key12 });
+            XAssert.AreEqual(key1Errors, new[] { key11, key12 });
             var allErrors = errors.Errors;
-            XAssert.Equal(allErrors, new[] { key11, key12, key21 });
+            XAssert.AreEqual(allErrors, new[] { key11, key12, key21 });
 
             XAssert.True(errors.HasErrorsForKey("Key1"));
             XAssert.True(errors.HasErrorsForKey("Key2"));
         }
 
-        [Fact]
+        [Test]
         public void ErrorListThrows()
         {
             var errors = new Validator();
             errors.CheckValue(false, "x").IsTrue();
             errors.CheckValue(true, "y").IsFalse();
             var ex = XAssert.Throws<MultipleErrorsException>(() => errors.Throw());
-            XAssert.Equal(2, ex.Errors.Count);
+            XAssert.AreEqual(2, ex.Errors.Count);
         }
     }
 }

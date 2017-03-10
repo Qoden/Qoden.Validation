@@ -1,12 +1,13 @@
-﻿using System;
-using Xunit;
-using XAssert = Xunit.Assert;
+using System;
+using NUnit.Framework;
+using XAssert = NUnit.Framework.Assert;
 
 namespace Qoden.Validation.Test
 {
+	[TestFixture]
     public class NullableValidationTest
     {
-        [Fact]
+        [Test]
         public void Check_HasValue()
         {
             var nullable = new DateTime?(DateTime.Now);
@@ -15,13 +16,13 @@ namespace Qoden.Validation.Test
             initial.OnErrorAction = error => { };
             var converted = initial.HasValue();
             XAssert.True(v.IsValid);
-            XAssert.Equal(initial.Key, converted.Key);
-            XAssert.Equal(initial.OnErrorAction, converted.OnErrorAction);
-            XAssert.Equal(initial.Validator, converted.Validator);
+            XAssert.AreEqual(initial.Key, converted.Key);
+            XAssert.AreEqual(initial.OnErrorAction, converted.OnErrorAction);
+            XAssert.AreEqual(initial.Validator, converted.Validator);
 
             var check = v.CheckValue(new DateTime?()).HasValue();
             XAssert.False(v.IsValid);
-            XAssert.Equal(check.Error["Validator"], "HasValue");
+            XAssert.AreEqual(check.Error["Validator"], "HasValue");
         }
     }
 }

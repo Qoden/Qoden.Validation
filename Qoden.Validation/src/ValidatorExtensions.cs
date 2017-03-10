@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using Qoden.Reflection;
+#pragma warning disable CS1701 // Assuming assembly reference matches identity
 
 namespace Qoden.Validation
 {
@@ -11,13 +12,13 @@ namespace Qoden.Validation
     {
         public static IEnumerable<Error> ErrorsForKey<T>(this IValidator list, Expression<Func<T>> expr)
         {
-            var key = PropertySupport.ExtractPropertyName(expr);
-            return list.ErrorsForKey(key);
+			var key = PropertySupport.ExtractPropertyName(expr);
+			return list.ErrorsForKey(key);
         }
 
         public static bool HasErrorsForKey(this IValidator list, string key = null)
         {
-            key = key ?? String.Empty;
+            key = key ?? string.Empty;
             return list.Errors.Any(e => e.Key == key);
         }
 
@@ -44,17 +45,6 @@ namespace Qoden.Validation
         public static Check<T> CheckProperty<T>(this IValidator result, T value, [CallerMemberName] string key = null)
         {
             return result.CheckValue(value, key);
-        }
-
-        public static readonly RuntimeEvent ErrorsChangedEvent = new RuntimeEvent(typeof(IValidator), "ErrorsChanged");
-
-        public static readonly IPropertyBindingStrategy ErrorsChangedBindingStrategy =
-            new EventHandlerBindingStrategy(ErrorsChangedEvent);
-
-        public static Property<IEnumerable<Error>> Errors<T>(this T list)
-            where T : IValidator
-        {
-            return list.GetProperty(_ => _.Errors, ErrorsChangedBindingStrategy, () => list.Errors);
         }
 
         public static Error ErrorForKey(this IValidator errors, string v)
