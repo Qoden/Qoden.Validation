@@ -1,19 +1,19 @@
-using NUnit.Framework;
-using XAssert = NUnit.Framework.Assert;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using XAssert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace Qoden.Validation.Test
 {
-	[TestFixture]
+	[TestClass]
     public class EqualityValidationTest
     {
-        [Test]
+        [TestMethod]
         public void Check_IsTrue_IsFalse()
         {
             var v = new Validator();
             v.CheckValue(true, "One").IsTrue();
-            XAssert.False(v.HasErrors);
+            XAssert.IsFalse(v.HasErrors);
             v.CheckValue(false, "One").IsFalse();
-            XAssert.False(v.HasErrors);
+            XAssert.IsFalse(v.HasErrors);
 
             var falseCheck = v.CheckValue(false, "One").IsTrue();
             XAssert.AreEqual(falseCheck.Error["Value"], false);
@@ -26,7 +26,7 @@ namespace Qoden.Validation.Test
             XAssert.AreEqual(trueCheck.Error["Validator"], "IsFalse");
         }
 
-        [Test]
+        [TestMethod]
         public void Check_EqualsTo()
         {
             var v = new Validator();
@@ -37,38 +37,38 @@ namespace Qoden.Validation.Test
             XAssert.AreEqual(oneCheck.Error["Validator"], "EqualsTo");
         }
 
-        [Test]
+        [TestMethod]
         public void Check_NotEquals()
         {
             var v = new Validator();
             var check = v.CheckValue("AAA").NotEqualsTo("BBB");
-            XAssert.True(check.IsValid);
+            XAssert.IsTrue(check.IsValid);
             check.NotEqualsTo("AAA");
-            XAssert.False(check.IsValid);
+            XAssert.IsFalse(check.IsValid);
             XAssert.AreEqual(check.Error["Validator"], "NotEqualsTo");
         }
 
-        [Test]
+        [TestMethod]
         public void Check_In()
         {
             var v = new Validator();
             v.CheckValue("AAA").In(new[] { "BBB", "AAA" });
-            XAssert.True(v.IsValid);
+            XAssert.IsTrue(v.IsValid);
             var check = v.CheckValue("AAA").In(new[] { "CCCC", "ZZZ" });
-            XAssert.False(v.IsValid);
+            XAssert.IsFalse(v.IsValid);
             XAssert.AreEqual(check.Error["Validator"], "In");
 
             
         }
 
-        [Test]
+        [TestMethod]
         public void Check_NotIn()
         {
             var v = new Validator();
             v.CheckValue("CCCC").NotIn(new[] { "BBB", "AAA" });
-            XAssert.True(v.IsValid);
+            XAssert.IsTrue(v.IsValid);
             var check = v.CheckValue("CCCC").NotIn(new[] { "CCCC", "ZZZ" });
-            XAssert.False(v.IsValid);
+            XAssert.IsFalse(v.IsValid);
             XAssert.AreEqual(check.Error["Validator"], "NotIn");
         }
     }

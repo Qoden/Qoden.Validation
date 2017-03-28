@@ -1,30 +1,30 @@
-using NUnit.Framework;
-using XAssert = NUnit.Framework.Assert;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using XAssert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace Qoden.Validation.Test
 {
-	[TestFixture]
+	[TestClass]
     public class EmptyValidationTest
     {
-        [Test]
+        [TestMethod]
         public void Check_EmptyString()
         {
             var v = new Validator();
             v.CheckValue("1", "One").NotEmpty().NotNull();
-            XAssert.False(v.HasErrors);
+            XAssert.IsFalse(v.HasErrors);
             v.CheckValue<string>(null, "Null").IsNull();
-            XAssert.False(v.HasErrors);
+            XAssert.IsFalse(v.HasErrors);
 
             var check = v.CheckValue("", "Empty").NotEmpty();
-            XAssert.True(check.HasError);
+            XAssert.IsTrue(check.HasError);
             XAssert.AreEqual(check.Error["Validator"], "NotEmpty");
 
             check = v.CheckValue<string>(null, "Null").NotNull();
-            XAssert.True(check.HasError);
+            XAssert.IsTrue(check.HasError);
             XAssert.AreEqual(check.Error["Validator"], "NotNull");
 
             check = v.CheckValue("", "NotNull").IsNull();
-            XAssert.True(check.HasError);
+            XAssert.IsTrue(check.HasError);
             XAssert.AreEqual(check.Error["Validator"], "IsNull");
         }
     }

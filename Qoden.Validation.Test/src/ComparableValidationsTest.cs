@@ -1,19 +1,19 @@
-using NUnit.Framework;
-using XAssert = NUnit.Framework.Assert;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using XAssert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace Qoden.Validation.Test
 {
-	[TestFixture]
+	[TestClass]
     public class ComparableValidationsTest
     {
-        [Test]
+        [TestMethod]
         public void Check_LessOrEqualTo()
         {
             var v = new Validator();
             v.CheckValue(1, "One")
                 .LessOrEqualTo(1)
                 .LessOrEqualTo(2);
-            XAssert.False(v.HasErrors);
+            XAssert.IsFalse(v.HasErrors);
 
             var check = v.CheckValue(1, "One");
             check.LessOrEqualTo(0);
@@ -22,26 +22,26 @@ namespace Qoden.Validation.Test
             XAssert.AreEqual(check.Error["Validator"], "LessOrEqualTo");
         }
 
-        [Test]
+        [TestMethod]
         public void Check_Less()
         {
             var v = new Validator();
             var check = v.CheckValue(1, "One").Less(2);
-            XAssert.False(v.HasErrors);
+            XAssert.IsFalse(v.HasErrors);
             check.Less(1);
             XAssert.AreEqual(check.Error["Max"], 1);
             XAssert.AreEqual(check.Error["Value"], 1);
             XAssert.AreEqual(check.Error["Validator"], "Less");
         }
 
-        [Test]
+        [TestMethod]
         public void Check_GreaterOrEqualTo()
         {
             var v = new Validator();
             var check = v.CheckValue(1, "One")
                 .GreaterOrEqualTo(1)
                 .GreaterOrEqualTo(0);
-            XAssert.False(v.HasErrors);
+            XAssert.IsFalse(v.HasErrors);
 
             check.GreaterOrEqualTo(2);
             XAssert.AreEqual(check.Error["Min"], 2);
@@ -49,31 +49,31 @@ namespace Qoden.Validation.Test
             XAssert.AreEqual(check.Error["Validator"], "GreaterOrEqualTo");
         }
 
-        [Test]
+        [TestMethod]
         public void Check_Greater()
         {
             var v = new Validator();
             var check = v.CheckValue(1, "One").Greater(0);
-            XAssert.False(v.HasErrors);
+            XAssert.IsFalse(v.HasErrors);
             check.Greater(1);
             XAssert.AreEqual(check.Error["Min"], 1);
             XAssert.AreEqual(check.Error["Value"], 1);
             XAssert.AreEqual(check.Error["Validator"], "Greater");
         }
 
-        [Test]
+        [TestMethod]
         public void Check_EqualsTo()
         {
             var v = new Validator();
             var check = v.CheckValue(1, "One").EqualsTo(1);
-            XAssert.False(v.HasErrors);
+            XAssert.IsFalse(v.HasErrors);
             check.EqualsTo(0);
             XAssert.AreEqual(check.Error["Expected"], 0);
             XAssert.AreEqual(check.Error["Value"], 1);
             XAssert.AreEqual(check.Error["Validator"], "EqualsTo");
         }
 
-        [Test]
+        [TestMethod]
         public void Check_Between()
         {
             var v = new Validator();
@@ -82,7 +82,7 @@ namespace Qoden.Validation.Test
                 .BetweenInclusive(-1, 1)
                 .BetweenInclusive(1, 2)
                 .Between(0, 2);
-            XAssert.False(v.HasErrors);
+            XAssert.IsFalse(v.HasErrors);
 
             check.Between(1, 2);
             XAssert.AreEqual(check.Error["Min"], 1);

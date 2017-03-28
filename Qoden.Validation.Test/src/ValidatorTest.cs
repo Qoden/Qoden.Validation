@@ -1,19 +1,21 @@
-﻿using NUnit.Framework;
-using XAssert = NUnit.Framework.Assert;
+using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using XAssert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace Qoden.Validation.Test
 {
+	[TestClass]
     public class ValidatorTest
     {
-        [Test]
+        [TestMethod]
         public void EmptyErrorListValid()
         {
             var errors = new Validator();
-            XAssert.True(errors.IsValid);
-            XAssert.False(errors.HasErrors);
+            XAssert.IsTrue(errors.IsValid);
+            XAssert.IsFalse(errors.HasErrors);
         }
 
-        [Test]
+        [TestMethod]
         public void ErrorListCanBeInspected()
         {
             var errors = new Validator();
@@ -25,21 +27,22 @@ namespace Qoden.Validation.Test
             errors.Add(key21);
 
             var key1Errors = errors.ErrorsForKey("Key1");
-            XAssert.AreEqual(key1Errors, new[] { key11, key12 });
-            var allErrors = errors.Errors;
-            XAssert.AreEqual(allErrors, new[] { key11, key12, key21 });
 
-            XAssert.True(errors.HasErrorsForKey("Key1"));
-            XAssert.True(errors.HasErrorsForKey("Key2"));
+			CollectionAssert.AreEqual(new[] { key11, key12 }, key1Errors.ToArray());
+            var allErrors = errors.Errors;
+			CollectionAssert.AreEqual(new[] { key11, key12, key21 }, allErrors.ToArray());
+
+            XAssert.IsTrue(errors.HasErrorsForKey("Key1"));
+            XAssert.IsTrue(errors.HasErrorsForKey("Key2"));
         }
 
-        [Test]
+        [TestMethod]
         public void ErrorListThrows()
         {
             var errors = new Validator();
             errors.CheckValue(false, "x").IsTrue();
             errors.CheckValue(true, "y").IsFalse();
-            var ex = XAssert.Throws<MultipleErrorsException>(() => errors.Throw());
+            var ex = XAssert.ThrowsException<MultipleErrorsException>(() => errors.Throw());
             XAssert.AreEqual(2, ex.Errors.Count);
         }
     }

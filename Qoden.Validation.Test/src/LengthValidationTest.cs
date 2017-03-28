@@ -1,19 +1,19 @@
-﻿using System.Collections.Generic;
-using NUnit.Framework;
-using XAssert = NUnit.Framework.Assert;
+using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using XAssert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace Qoden.Validation.Test
 {
-	[TestFixture]
+	[TestClass]
 	public class LengthValidationTest
 	{
-		[Test]
+		[TestMethod]
 		public void LengthValidation()
 		{
 			var v = new Validator();
 			var value = new List<int> { 1, 2, 3 };
 			v.CheckValue(value, "Array").MinLength(3).MaxLength(3);
-			XAssert.False(v.HasErrors);
+			XAssert.IsFalse(v.HasErrors);
 
 			var check = v.CheckValue(value, "Array");
 			check.MinLength(4);

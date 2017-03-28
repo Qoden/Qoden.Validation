@@ -1,25 +1,25 @@
-using NUnit.Framework;
-using XAssert = NUnit.Framework.Assert;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using XAssert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace Qoden.Validation.Test
 {
-	[TestFixture]
+	[TestClass]
 	public class BasicFunctionsTest
 	{
-		[Test]
+		[TestMethod]
 		public void SanityCheck()
 		{
 			var v = new Validator();
 			var check = v.CheckValue<string>(null, "SomeValue");
 			check.NotNull("Value {Key} should not be null");
-			XAssert.False(v.IsValid);
-			XAssert.True(v.HasErrorsForKey("SomeValue"));
-			XAssert.True(v.HasErrors);
+			XAssert.IsFalse(v.IsValid);
+			XAssert.IsTrue(v.HasErrorsForKey("SomeValue"));
+			XAssert.IsTrue(v.HasErrors);
 			var error = v.ErrorForKey("SomeValue");
 			XAssert.AreEqual("Value SomeValue should not be null", error.Message);
 		}
 
-		[Test]
+		[TestMethod]
 		public void ErrorInfoPostprocessing()
 		{
 			var v = new Validator();
@@ -27,38 +27,37 @@ namespace Qoden.Validation.Test
 				.NotNull();
 
 			var error = v.ErrorForKey("someKey");
-			XAssert.True(error.ContainsKey("Code"));
+			XAssert.IsTrue(error.ContainsKey("Code"));
 			XAssert.AreEqual(error["Code"], "Some_Error_Code");
 		}
 
-		[Test]
+		[TestMethod]
 		public void ErrorHasProperMessage()
 		{
-
 			var v = new Validator();
 			v.CheckValue(1, "ValueName").GreaterOrEqualTo(10);
 			var error = v.ErrorForKey("ValueName");
-			StringAssert.Contains("ValueName", error.Message);
-			StringAssert.Contains("1", error.Message);
-			StringAssert.Contains("10", error.Message);
+			StringAssert.Contains(error.Message, "ValueName");
+			StringAssert.Contains(error.Message, "1");
+			StringAssert.Contains(error.Message, "10");
 		}
 
-		[Test]
+		[TestMethod]
 		public void ErrorHasProperFlags()
 		{
 			var v = new Validator();
 			var check = v.CheckValue(1, "ValueName");
-			XAssert.True(check.IsValid);
-			XAssert.False(check.HasError);
-			XAssert.False(v.HasErrors);
+			XAssert.IsTrue(check.IsValid);
+			XAssert.IsFalse(check.HasError);
+			XAssert.IsFalse(v.HasErrors);
 			check = check.GreaterOrEqualTo(10);
-			XAssert.False(check.IsValid);
-			XAssert.True(check.HasError);
-			XAssert.True(v.HasErrors);
-			XAssert.NotNull(v.ErrorsForKey("ValueName"));
+			XAssert.IsFalse(check.IsValid);
+			XAssert.IsTrue(check.HasError);
+			XAssert.IsTrue(v.HasErrors);
+			XAssert.IsNotNull(v.ErrorsForKey("ValueName"));
 		}
 
-		[Test]
+		[TestMethod]
 		public void PostProcessorsCanCustomizeError()
 		{
 			var v = new Validator();
