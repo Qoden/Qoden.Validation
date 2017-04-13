@@ -14,8 +14,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Qoden.Format" Version="1.0.0-beta-*" />
-    <PackageReference Include="Qoden.Reflection" Version="1.0.0-beta-*" />
+    <PackageReference Include="Qoden.Format" Version="1.0.0-b*" />
+    <PackageReference Include="Qoden.Reflection" Version="1.0.0-b*" />
   </ItemGroup>
 
 </Project>
