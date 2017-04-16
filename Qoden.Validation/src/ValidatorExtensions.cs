@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -42,9 +42,9 @@ namespace Qoden.Validation
             return new Check<T>(value, key, validator).OnError(onError);
         }
 
-        public static Check<T> CheckProperty<T>(this IValidator result, T value, [CallerMemberName] string key = null)
+        public static Check<T> CheckProperty<T>(this IValidator result, T value, Action<Error> onError = null, [CallerMemberName] string key = null)
         {
-            return result.CheckValue(value, key);
+            return result.CheckValue(value, key, onError);
         }
 
         public static Error ErrorForKey(this IValidator errors, string v)
