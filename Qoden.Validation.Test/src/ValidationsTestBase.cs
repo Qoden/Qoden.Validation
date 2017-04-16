@@ -1,10 +1,10 @@
-namespace Qoden.Validation.Test
+﻿namespace Qoden.Validation.Test
 {
-    public class ValidationsTest
+    public class ValidationsTestBase
     {
         protected Validator Validator;
 
-        public ValidationsTest()
+        public ValidationsTestBase()
         {
             Validator = new Validator();
         }

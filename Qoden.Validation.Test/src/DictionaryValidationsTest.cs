@@ -6,7 +6,7 @@ using XAssert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 namespace Qoden.Validation.Test
 {
     [TestClass]
-    public class DictionaryValidationsTest
+    public class DictionaryValidationsTest : ValidationsTestBase
     {
         Dictionary<string, string> dict;
 
@@ -19,18 +19,16 @@ namespace Qoden.Validation.Test
         [TestMethod]
         public void EmailValidation()
         {
-            var v = new Validator();
             dict.Add("testKey", "testValue");
-            v.CheckValue(dict, "someEmail").ContainsKey("testKey");
-            XAssert.IsTrue(v.IsValid);
+            Validator.CheckValue(dict, "someEmail").ContainsKey("testKey");
+            XAssert.IsTrue(Validator.IsValid);
         }
 
         [TestMethod]
         public void InvalidEmails()
         {
-            var v = new Validator();
-            v.CheckValue(dict, "someEmail").ContainsKey("testKey");
-            XAssert.IsFalse(v.IsValid);
+            Validator.CheckValue(dict, "someEmail").ContainsKey("testKey");
+            XAssert.IsFalse(Validator.IsValid);
         }
     }
 }

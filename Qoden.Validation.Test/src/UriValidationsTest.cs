@@ -5,7 +5,7 @@ using XAssert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 namespace Qoden.Validation.Test
 {
     [TestClass]
-    public class UriValidationsTest : ValidationsTest
+    public class UriValidationsTest : ValidationsTestBase
     {
         [TestMethod]
         public void UriValidation()
