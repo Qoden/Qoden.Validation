@@ -5,22 +5,36 @@ using XAssert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 namespace Qoden.Validation.Test
 {
     [TestClass]
-    public class UriValidationsTest
+    public class UriValidationsTest : ValidationsTest
     {
         [TestMethod]
         public void UriValidation()
         {
-            var v = new Validator();
-            v.CheckValue(new Uri("http://google.com")).IsAbsoluteUri();
-            XAssert.IsTrue(v.IsValid);
+            Validator.CheckValue(new Uri("http://google.com")).IsAbsoluteUri();
+            XAssert.IsTrue(Validator.IsValid);
+
+            Validator.CheckValue("http://google.com").IsAbsoluteUri();
+            XAssert.IsTrue(Validator.IsValid);
         }
 
         [TestMethod]
         public void RelativeUri()
         {
-            var v = new Validator();
-            v.CheckValue(new Uri("/path/some", UriKind.Relative)).IsAbsoluteUri();
-            XAssert.IsFalse(v.IsValid);
+            Validator.CheckValue(new Uri("/path/some", UriKind.Relative)).IsAbsoluteUri();
+            XAssert.IsFalse(Validator.IsValid);
+
+            Validator.CheckValue("/path/some").IsAbsoluteUri();
+            XAssert.IsFalse(Validator.IsValid);
+        }
+
+        [TestMethod]
+        public void Nulls()
+        {
+            Validator.CheckValue((string)null).IsAbsoluteUri();
+            XAssert.IsFalse(Validator.IsValid);
+
+            Validator.CheckValue((Uri)null).IsAbsoluteUri();
+            XAssert.IsFalse(Validator.IsValid);
         }
     }
 }
