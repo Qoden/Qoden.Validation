@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
@@ -22,7 +23,21 @@ namespace Qoden.Validation.AspNetCore
         {
             var response = context.Response;
             response.StatusCode = _errorStatusCode(e.Error);
-            await WriteBody(response, e.Error);
+            var error = ErrorToJson(e.Error);
+            await WriteBody(response, error);
+        }
+
+        public static Dictionary<string, object> ErrorToJson(Error error)
+        {
+            var json = new Dictionary<string, object>();
+            foreach (var kv in error)
+            {
+                if (!string.IsNullOrEmpty(kv.Key) && kv.Value != null)
+                {
+                    json[kv.Key] = kv.Value;
+                }
+            }
+            return json;
         }
 
         public static int ErrorStatusCode(Error e)
@@ -30,9 +45,9 @@ namespace Qoden.Validation.AspNetCore
             if (e.ContainsKey("StatusCode"))
             {
                 var ee = e["StatusCode"];
-                if (ee is Int32)
+                if (ee is IConvertible)
                 {
-                    return (int)ee;
+                    return System.Convert.ToInt32(ee);
                 }
             }
             return StatusCodes.Status400BadRequest;

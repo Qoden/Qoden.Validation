@@ -24,7 +24,8 @@ namespace Qoden.Validation.AspNetCore
             var response = context.Response;
             var topError = e.Errors.OrderBy(ErrorScore).FirstOrDefault();
             response.StatusCode = _errorStatusCode(topError);
-            await WriteBody(response, e.Error);
+            var error = ErrorExceptionConverter.ErrorToJson(topError);
+            await WriteBody(response, error);
         }
 
         protected virtual int ErrorScore(Error arg)
