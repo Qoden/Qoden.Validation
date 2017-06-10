@@ -1,20 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>netstandard1.6</TargetFramework>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <Folder Include="src\" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Qoden.Validation" Version="1.0.0-b9" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="1.1.2" />
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="1.1.2" />
-    <PackageReference Include="System.ComponentModel.Annotations" Version="4.3.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Qoden.Validation.AspNetCore.csproj" />
-  </ItemGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard1.4</TargetFramework>
+		<DefineConstants>$(DefineConstants);__NET_CORE__</DefineConstants>
+		<AssemblyName>Qoden.Validation.AspNetCore</AssemblyName>
+		<PackageId>Qoden.Validation.AspNetCore</PackageId>
+		<PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81</PackageTargetFallback>
+		<GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+		<GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+		<PackageVersion>1.0.0</PackageVersion>
+		<Authors>Qoden Technologies</Authors>
+		<Description>Middleware and helpers to make Qoden.Validation play nicely with AspNetCore apps</Description>
+		<PackOnBuild>true</PackOnBuild>
+	</PropertyGroup>
+	<ItemGroup>
+		<Folder Include="src\" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Qoden.Validation" Version="1.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="1.1.2" />
+		<PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="1.1.2" />
+		<PackageReference Include="System.ComponentModel.Annotations" Version="4.3.0" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="Qoden.Validation.AspNetCore.csproj" />
+	</ItemGroup>
 </Project>
