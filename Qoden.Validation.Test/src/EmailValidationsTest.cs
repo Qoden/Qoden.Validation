@@ -26,5 +26,12 @@ namespace Qoden.Validation.Test
             Validator.CheckValue("sadsf@mailinator", "someEmail").IsEmail();
             XAssert.IsFalse(Validator.IsValid);
         }
+
+        [TestMethod]
+        public void NullEmail()
+        {
+            Validator.CheckValue((string)null).IsEmail();
+            XAssert.IsFalse(Validator.IsValid);
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace Qoden.Validation
 
         public static bool IsEmail(string str)
         {
-            return Email.IsMatch(str);
+            return str != null && Email.IsMatch(str);
         }
 
         public const string IsEmailErrorMessage = "{Key} should be an email";
@@ -18,7 +18,7 @@ namespace Qoden.Validation
         public static Check<string> IsEmail(this Check<string> check, string message = IsEmailErrorMessage,
             Action<Error> onError = null)
         {
-            if (!Email.IsMatch(check.Value))
+            if (!IsEmail(check.Value))
             {
                 var error = new Error(message)
                 {
