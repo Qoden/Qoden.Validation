@@ -3,20 +3,21 @@ using System.Linq;
 
 namespace Qoden.Validation
 {
-	public static class EqualityValidation
-	{
-		public const string EqualityMessage = "{Key} is not equal to {Expected}";
+    public static class EqualityValidation
+    {
+        public const string EqualityMessage = "{Key} is not equal to {Expected}";
 
-		public static Check<T> EqualsTo<T> (this Check<T> check, T value, string message = EqualityMessage, Action<Error> onError = null)			
-		{
-			if (!Equals (check.Value, value)) {
-				check.FailValidator (new Error(message) {
+        public static Check<T> EqualsTo<T>(this Check<T> check, T value, string message = EqualityMessage, Action<Error> onError = null)
+        {
+            if (!Equals(check.Value, value))
+            {
+                check.FailValidator(new Error(message) {
                     {"Expected", value },
                     {"Value", check.Value}
-				}, onError);
-			}
-			return check;
-		}
+                }, onError);
+            }
+            return check;
+        }
 
         public const string NullMessage = "{Key} must be null";
 
@@ -25,7 +26,7 @@ namespace Qoden.Validation
         {
             if (!ReferenceEquals(check.Value, null))
             {
-                check.FailValidator(new Error(message), onError);
+                check.FailValidator(new Error(message) { { "Value", check.Value } }, onError);
             }
             return check;
         }
@@ -36,13 +37,13 @@ namespace Qoden.Validation
         {
             if (ReferenceEquals(check.Value, null))
             {
-                check.FailValidator(new Error(message), onError);
+                check.FailValidator(new Error(message) { { "Value", null } }, onError);
             }
             return check;
         }
 
 
-        public static Check<bool> IsTrue (this Check<bool> check, string message = EqualityMessage, Action<Error> onError = null)
+        public static Check<bool> IsTrue(this Check<bool> check, string message = EqualityMessage, Action<Error> onError = null)
         {
             if (!check.Value)
             {
@@ -54,7 +55,7 @@ namespace Qoden.Validation
             return check;
         }
 
-		public static Check<bool> IsFalse (this Check<bool> check, string message = EqualityMessage, Action<Error> onError = null)
+        public static Check<bool> IsFalse(this Check<bool> check, string message = EqualityMessage, Action<Error> onError = null)
         {
             if (check.Value)
             {
@@ -96,7 +97,7 @@ namespace Qoden.Validation
         }
 
         public const string NotInMessage = "{Key} should not be on of {InvalidCandidates}";
-        public static Check<T> NotIn<T>(this Check<T> check, T[] candidates, string message = NotInMessage, Action<Error> onError = null )
+        public static Check<T> NotIn<T>(this Check<T> check, T[] candidates, string message = NotInMessage, Action<Error> onError = null)
         {
             if (candidates.Contains(check.Value))
             {
