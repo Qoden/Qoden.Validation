@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.4</TargetFramework>
-    <DefineConstants>$(DefineConstants);__NET_CORE__</DefineConstants>
+    <DefineConstants>$(DefineConstants);</DefineConstants>
     <AssemblyName>Qoden.Validation</AssemblyName>
     <PackageId>Qoden.Validation</PackageId>
     <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81</PackageTargetFallback>
@@ -17,13 +17,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Qoden.Format" Version="1.0.0" />
-    <PackageReference Include="Qoden.Reflection" Version="1.0.0" />
 	<PackageReference Include="System.ComponentModel.Annotations" Version="4.3.0" />
 	<PackageReference Include="System.Runtime.Serialization.Primitives" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="Qoden.Validation.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Qoden.Reflection\Qoden.Reflection\Qoden.Reflection.csproj" />
+    <ProjectReference Include="..\..\Qoden.Format\Qoden.Format\Qoden.Format.csproj" />
   </ItemGroup>
 </Project>
