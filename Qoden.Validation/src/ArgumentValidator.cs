@@ -14,7 +14,10 @@ namespace Qoden.Validation
 			else
 				ex = new ArgumentException(error.Message, error.Key);
 
-			ex.Data.Add(ErrorKey, error);
+            foreach (var kv in error)
+            {
+                ex.Data.Add(kv.Key, kv.Value);
+            }
 
 			throw ex;
 		}
