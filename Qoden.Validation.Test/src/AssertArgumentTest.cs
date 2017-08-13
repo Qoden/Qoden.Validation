@@ -10,7 +10,7 @@ namespace Qoden.Validation.Test
         [TestMethod]
         public void AssertNullArgument()
         {
-            XAssert.ThrowsException<ArgumentNullException>(()=>
+            var ex = XAssert.ThrowsException<ArgumentNullException>(()=>
             {
                 Assert.Argument((string)null, "child").NotNull();    
             });

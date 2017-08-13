@@ -8,23 +8,7 @@ namespace Qoden.Validation
 
         public override void Add(Error error)
         {
-            var ex = new InvalidOperationException(error.Message);
-			ex.Data.Add(ErrorKey, error);
-			throw ex;
+            throw new InvalidOperationException(error.Message);
         }
-
-		public const string ErrorKey = "Qoden.Error";
     }
-
-	public static class OperationValidatorExtensions
-	{
-		public static Error GetQodenError(this InvalidOperationException ex)
-		{
-			if (ex.Data.Contains(OperationValidator.ErrorKey))
-			{
-				return ex.Data[OperationValidator.ErrorKey] as Error;
-			}
-			return null;
-		}
-	}
 }

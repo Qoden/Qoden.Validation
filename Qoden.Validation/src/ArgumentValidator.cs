@@ -13,26 +13,8 @@ namespace Qoden.Validation
 				ex = new ArgumentNullException(error.Key);
 			else
 				ex = new ArgumentException(error.Message, error.Key);
-
-            foreach (var kv in error)
-            {
-                ex.Data.Add(kv.Key, kv.Value);
-            }
-
 			throw ex;
 		}
-
-		public const string ErrorKey = "Qoden.Error";
 	}
-
-	public static class ArgumentValidatorExtensions 
-	{
-		public static Error GetQodenError(this ArgumentException ex)
-		{
-			if (ex.Data.Contains(ArgumentValidator.ErrorKey)) {
-				return ex.Data[ArgumentValidator.ErrorKey] as Error;	
-			}
-			return null;
-		}
-	}
+	
 }
