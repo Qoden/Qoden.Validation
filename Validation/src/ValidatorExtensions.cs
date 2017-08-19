@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
-using Qoden.Reflection;
+using Qoden.Util;
 #pragma warning disable CS1701 // Assuming assembly reference matches identity
 
 namespace Qoden.Validation

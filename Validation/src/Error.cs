@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Qoden.Format;
+using Qoden.Util;
 
 namespace Qoden.Validation
 {

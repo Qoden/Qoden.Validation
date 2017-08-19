@@ -19,13 +19,15 @@
 		<Folder Include="src\" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Qoden.Validation" Version="1.0.2" />
 		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="1.1.2" />
 		<PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="1.1.2" />
 		<PackageReference Include="System.ComponentModel.Annotations" Version="4.3.0" />
 	</ItemGroup>
 	<ItemGroup>
-		<None Include="Qoden.Validation.AspNetCore.csproj" />
+		<None Include="AspNetCore.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\Validation\Validation.csproj" />
 	</ItemGroup>
 </Project>

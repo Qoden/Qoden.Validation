@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Qoden.Reflection;
+using Qoden.Util;
 
 namespace Qoden.Validation.AspNetCore
 {

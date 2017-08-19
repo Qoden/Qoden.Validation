@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.Serialization;
-using Qoden.Reflection;
+using Qoden.Util;
 
 namespace Qoden.Validation
 {
