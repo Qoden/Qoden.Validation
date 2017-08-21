@@ -3,11 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCore", "AspNetCore\AspNetCore.csproj", "{FDDE0D79-A0EA-4B73-8A70-688358F86004}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qoden.Validation.AspNetCore", "AspNetCore\Qoden.Validation.AspNetCore.csproj", "{FDDE0D79-A0EA-4B73-8A70-688358F86004}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validation", "Validation\Validation.csproj", "{6FF92E1D-39BD-49A0-924E-6F43A3751E3D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qoden.Validation", "Validation\Qoden.Validation.csproj", "{6FF92E1D-39BD-49A0-924E-6F43A3751E3D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{1EA2FA84-FBEE-4FB1-93E7-7DAF2BD98B22}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{AD082DDF-D9D3-49F1-B6A1-F0DF3DABC3F6}"
+	ProjectSection(SolutionItems) = preProject
+		Qoden.Validation.sln = Qoden.Validation.sln
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

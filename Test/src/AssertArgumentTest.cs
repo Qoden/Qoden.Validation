@@ -10,6 +10,8 @@ namespace Qoden.Validation.Test
         [TestMethod]
         public void AssertNullArgument()
         {
+            Qoden.Util.HttpUtility.ParseQueryString("aaaa=cc&ddd=3");
+
             var ex = XAssert.ThrowsException<ArgumentNullException>(()=>
             {
                 Assert.Argument((string)null, "child").NotNull();    

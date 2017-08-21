@@ -1,23 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
-    <DebugType>portable</DebugType>
-    <AssemblyName>Qoden.Validation.Test</AssemblyName>
-    <PackageId>Qoden.Validation.Test</PackageId>
-    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
-    <PackageTargetFallback>$(PackageTargetFallback);dnxcore50;portable-net45+win8</PackageTargetFallback>
-    <RuntimeFrameworkVersion>1.1.1</RuntimeFrameworkVersion>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="../Validation/Validation.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0-preview-20170106-08" />
-    <PackageReference Include="MSTest.TestAdapter" Version="1.1.8-rc" />
-    <PackageReference Include="MSTest.TestFramework" Version="1.0.8-rc" />
-  </ItemGroup>
-
+	<PropertyGroup>
+		<TargetFramework>netcoreapp1.1</TargetFramework>
+		<DebugType>portable</DebugType>
+		<AssemblyName>Qoden.Validation.Test</AssemblyName>
+		<PackageId>Qoden.Validation.Test</PackageId>
+		<GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+		<PackageTargetFallback>$(PackageTargetFallback);dnxcore50;portable-net45+win8</PackageTargetFallback>
+		<RuntimeFrameworkVersion>1.1.1</RuntimeFrameworkVersion>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="../Validation/Qoden.Validation.csproj" />
+		<ProjectReference Include="../AspNetCore/Qoden.Validation.AspNetCore.csproj" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3" />
+		<PackageReference Include="MSTest.TestAdapter" Version="1.1.18" />
+		<PackageReference Include="MSTest.TestFramework" Version="1.1.18" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="Test.csproj" />
+	</ItemGroup>
 </Project>

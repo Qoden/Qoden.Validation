@@ -1,9 +1,5 @@
-﻿<Properties StartupConfiguration="{1EA2FA84-FBEE-4FB1-93E7-7DAF2BD98B22}|Unit Tests">
-  <MonoDevelop.Ide.Workbench ActiveDocument="AspNetCore/src/ExceptionConverterMiddleware.cs">
-    <Files>
-      <File FileName="AspNetCore/src/ExceptionConverterMiddleware.cs" Line="47" Column="26" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+﻿<Properties StartupConfiguration="{1EA2FA84-FBEE-4FB1-93E7-7DAF2BD98B22}|Default">
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
