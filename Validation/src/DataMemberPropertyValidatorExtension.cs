@@ -12,7 +12,7 @@ namespace Qoden.Validation
     {
         public static Check<T> CheckDataMember<T, TDto>(this IValidator validator, TDto dto,
             Expression<Func<TDto, T>> property,
-            Action<Error> onError = null)
+            Action<Error> onError = null, bool clear = true)
         {
             var dataProperty = PropertyName(property);
             var dataMember = dataProperty.GetCustomAttribute<DataMemberAttribute>();
@@ -26,12 +26,12 @@ namespace Qoden.Validation
                 name = dataProperty.Name;
             }
             var value = (T) Inspection.GetValue(dto, dataProperty);
-            return validator.CheckValue(value, name, onError);
+            return validator.CheckValue(value, name, onError, clear);
         }
 
         public static Check<T> CheckColumn<T, TDto>(this IValidator validator, TDto dto,
             Expression<Func<TDto, T>> property,
-            Action<Error> onError = null)
+            Action<Error> onError = null, bool clear = true)
         {
             var dataProperty = PropertyName(property);
             var propertyName = dataProperty.Name;
@@ -47,7 +47,7 @@ namespace Qoden.Validation
                 name = dataProperty.Name;
             }
             var value = (T) Inspection.GetValue(dto, dataProperty);
-            return validator.CheckValue(value, name, onError);
+            return validator.CheckValue(value, name, onError, clear);
         }
 
         private static PropertyInfo PropertyName<T, TDto>(Expression<Func<TDto, T>> property)

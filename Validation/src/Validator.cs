@@ -15,15 +15,37 @@ namespace Qoden.Validation
 
         void Add(Error error);
 
-        void Clear();
-
-        void Clear(string key);
+        void Clear(string key = null);
 
         IEnumerable<Error> Errors { get; }
 
         bool ThrowImmediately { get; set; }
 
+        string ErrorKeyPrefix { get; set; }
+
         IEnumerable<Error> ErrorsForKey(string key);
+    }
+
+    public class ValidatorScope : IDisposable
+    {
+        private readonly IValidator _validator;
+        private readonly string _oldPrefix;
+
+        public ValidatorScope(IValidator validator, string prefix)
+        {
+            _validator = validator ?? throw new ArgumentNullException(nameof(validator));
+            _oldPrefix = _validator.ErrorKeyPrefix;
+            if (_oldPrefix != null)
+            {
+                prefix = $"{_oldPrefix}.{prefix}";
+            }
+            _validator.ErrorKeyPrefix = prefix;
+        }
+
+        public void Dispose()
+        {
+            _validator.ErrorKeyPrefix = _oldPrefix;
+        }
     }
 
     public class Validator : IValidator
@@ -33,6 +55,8 @@ namespace Qoden.Validation
         public bool IsValid => _errors.Count == 0;
 
         public bool HasErrors => _errors.Count > 0;
+
+        public string ErrorKeyPrefix { get; set; } = null;
 
         public void Add(Error error)
         {

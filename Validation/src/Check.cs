@@ -51,7 +51,12 @@ namespace Qoden.Validation
         public void Fail(Error error)
         {
             Assert.Argument(error, "error").NotNull();
-            error.Key = Key;
+            var key = Key;
+            if (Validator?.ErrorKeyPrefix != null)
+            {
+                key = key != null ? $"{Validator.ErrorKeyPrefix}.{key}" : Validator.ErrorKeyPrefix;
+            }
+            error.Key = key;
             OnErrorAction?.Invoke(error);
             if (Validator != null)
             {

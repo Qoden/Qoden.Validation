@@ -24,6 +24,8 @@ namespace Qoden.Validation
         {
         }
 
+        public string ErrorKeyPrefix { get; set; }
+
         public IEnumerable<Error> ErrorsForKey(string key)
         {
             return Enumerable.Empty<Error>();
