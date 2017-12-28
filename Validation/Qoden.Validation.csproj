@@ -4,9 +4,9 @@
     <TargetFramework>netstandard1.4</TargetFramework>
     <AssemblyName>Qoden.Validation</AssemblyName>
     <PackageId>Qoden.Validation</PackageId>
-    <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81</PackageTargetFallback>        
-	<IncludeSymbols>true</IncludeSymbols>
-	<PackageVersion>1.0.5</PackageVersion>
+    <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81</PackageTargetFallback>
+    <IncludeSymbols>true</IncludeSymbols>
+    <PackageVersion>1.0.5</PackageVersion>
   </PropertyGroup>
   <ItemGroup>
     <None Include="Qoden.Validation.csproj" />
