@@ -82,6 +82,12 @@ namespace Qoden.Validation
             return Message;
         }
 
+        public bool TryGetValue(string key, out object value)
+        {
+            value = null;
+            return _info?.TryGetValue(key, out value) ?? false;
+        }
+
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
@@ -94,7 +100,7 @@ namespace Qoden.Validation
 
         public void Add(string key, object value)
         {
-            Info.Add(key, value);
+            Info[key] = value;
         }
 
         public bool ContainsKey(string value)

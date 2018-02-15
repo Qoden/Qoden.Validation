@@ -8,6 +8,11 @@ namespace Qoden.Validation
     /// <typeparam name="T">TYpe of value to check</typeparam>
     public struct Check<T>
     {
+        public static Check<T> From<TU>(Check<TU> check)
+        {
+            return new Check<T>(default(T), check.Key, check.Validator, check.OnErrorAction);
+        }
+        
         public Check(T value, string key, IValidator validator, Action<Error> onErrorAction)
         {
             Validator = validator;

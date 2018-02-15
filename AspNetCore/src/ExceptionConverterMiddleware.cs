@@ -75,6 +75,7 @@ namespace Qoden.Validation.AspNetCore
                 var converter = _converters.Implementation(e);
                 if (converter != null)
                 {
+                    context.Response.Headers.Add("Content-Type", "application/json");
                     await converter.Convert(e, context);
                 }
                 else

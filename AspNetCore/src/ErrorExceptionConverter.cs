@@ -8,7 +8,7 @@ namespace Qoden.Validation.AspNetCore
 {
     public class ErrorExceptionConverter : ExceptionConverter<ErrorException>
     {
-        private Func<Error, int> _errorStatusCode;
+        private readonly Func<Error, int> _errorStatusCode;
 
         public ErrorExceptionConverter(Func<Error, int> errorStatusCode)
         {
@@ -28,29 +28,23 @@ namespace Qoden.Validation.AspNetCore
             await WriteBody(response, error);
         }
 
-        public static Dictionary<string, object> ErrorToJson(Error error)
+        public static ErrorResponse ErrorToJson(Error error)
         {
-            var json = new Dictionary<string, object>();
-            foreach (var kv in error)
-            {
-                if (!string.IsNullOrEmpty(kv.Key) && kv.Value != null)
-                {
-                    json[kv.Key] = kv.Value;
-                }
-            }
-            return json;
+            var apiError = error.ToApiError();
+            return new ErrorResponse(new List<ApiError> {apiError});
         }
 
         public static int ErrorStatusCode(Error e)
         {
-            if (e.ContainsKey("StatusCode"))
+            if (e.ContainsKey(ApiError.StatusCodeKey))
             {
-                var ee = e["StatusCode"];
+                var ee = e[ApiError.StatusCodeKey];
                 if (ee is IConvertible)
                 {
                     return System.Convert.ToInt32(ee);
                 }
             }
+
             return StatusCodes.Status400BadRequest;
         }
     }
