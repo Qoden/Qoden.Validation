@@ -35,22 +35,10 @@ namespace Qoden.Validation.AspNetCore
 
         public static ApiError ToApiError(this Error error)
         {
-            string code;
+            string code = "";
             if (error.TryGetValue(ApiError.ErrorCodeKey, out var apiErrorCode))
             {
                 code = apiErrorCode.ToString().ToSnakeCase();
-            }
-            else if (error.TryGetValue("Validator", out var validator))
-            {
-                code = validator.ToString().ToSnakeCase();
-            }
-            else if (error.IsValidationError())
-            {
-                code = "validation_error";
-            }
-            else
-            {
-                code = "bad_request";
             }
 
             var apiError = new ApiError(code, error.Message);
@@ -61,6 +49,7 @@ namespace Qoden.Validation.AspNetCore
                 if (kv.Key == "Validator") continue;
                 if (kv.Key == ApiError.ErrorCodeKey) continue;
                 if (kv.Key == "Exception") continue;
+                if (kv.Key == "Key" && string.IsNullOrEmpty(kv.Value.ToString())) continue;
 
                 if (apiError.Data == null)
                 {

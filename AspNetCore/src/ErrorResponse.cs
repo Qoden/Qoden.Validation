@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
@@ -37,6 +38,25 @@ namespace Qoden.Validation.AspNetCore
         /// </summary>
         [DataMember(Name = "message")]
         public string Message { get; set; }
+
+        public int StatusCode
+        {
+            get
+            {
+                if (Data != null)
+                {
+                    if (Data.TryGetValue(StatusCodeKey, out var statusCode))
+                    {
+                        if (Int32.TryParse(statusCode.ToString(), out var code))
+                        {
+                            return code;
+                        }
+                    }    
+                }
+
+                return (int)HttpStatusCode.BadRequest;
+            }
+        }
     }
 
     [DataContract]
