@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Qoden.Validation.AspNetCore
 {
@@ -9,28 +10,25 @@ namespace Qoden.Validation.AspNetCore
             error.Add(ApiError.ErrorCodeKey, code);
         }
 
-        public static void StatusCode(this Error error, string code)
-        {
-            error.Add(ApiError.StatusCodeKey, code);
-        }
-
         public static string ApiErrorCode(this Error error)
         {
             if (error.ContainsKey(ApiError.ErrorCodeKey))
                 return error[ApiError.ErrorCodeKey] as string;
             return null;
         }
-
-        public static string StatusCodeKey(this Error error)
+        
+        public static void StatusCode(this Error error, int code)
         {
-            if (error.ContainsKey(ApiError.StatusCodeKey))
-                return error[ApiError.StatusCodeKey] as string;
-            return null;
+            error.Add(ApiError.StatusCodeKey, code);
         }
-
-        public static bool IsValidationError(this Error e)
+        
+        public static int StatusCode(this Error error)
         {
-            return e.ApiErrorCode() == null && !string.IsNullOrEmpty(e.Key);
+            if (error.TryGetValue(ApiError.StatusCodeKey, out var statusCode))
+            {
+                return Convert.ToInt32(statusCode);
+            }
+            return 400;
         }
 
         public static ApiError ToApiError(this Error error)

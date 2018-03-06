@@ -11,6 +11,7 @@ namespace Qoden.Validation.AspNetCore
     {
         public const string ErrorCodeKey = "ApiErrorCode";
         public const string StatusCodeKey = "StatusCode";
+        public static readonly string StatusCodeKeySnake = StatusCodeKey.ToSnakeCase();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApiError" /> class.
@@ -45,7 +46,7 @@ namespace Qoden.Validation.AspNetCore
             {
                 if (Data != null)
                 {
-                    if (Data.TryGetValue(StatusCodeKey, out var statusCode))
+                    if (Data.TryGetValue(StatusCodeKeySnake, out var statusCode))
                     {
                         if (Int32.TryParse(statusCode.ToString(), out var code))
                         {

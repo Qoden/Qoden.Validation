@@ -7,6 +7,13 @@ namespace Qoden.Validation
 {
     public abstract class NonCollectingValidator : IValidator
     {
+        public bool SkipNulls { get; }
+
+        protected NonCollectingValidator(bool skipNulls)
+        {
+            SkipNulls = skipNulls;
+        }
+
 #pragma warning disable 0067
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged
         {
@@ -46,6 +53,22 @@ namespace Qoden.Validation
         {
             get { return true; }
             set { throw new InvalidOperationException(); }
+        }
+        
+        public virtual Check<T> CheckValue<T>(T value, string key = null, Action<Error> onError = null, bool clear = true)
+        {
+            if (clear)
+            {
+                Clear(key);
+            }
+
+            IValidator validator = this;
+            if (SkipNulls && value == null)
+            {
+                validator = DevNullValidator.Instance;                
+            }
+            
+            return new Check<T>(value, key, validator).OnError(onError);
         }
     }
 }

@@ -33,17 +33,6 @@ namespace Qoden.Validation
             return list.HasErrorsForKey(key);
         }
 
-        public static Check<T> CheckValue<T>(this IValidator validator, T value, string key = null, Action<Error> onError = null, bool clear = true)
-        {
-            if (validator == null)
-                throw new ArgumentNullException(nameof(validator));
-            if (clear)
-            {
-                validator.Clear(key);
-            }
-            return new Check<T>(value, key, validator).OnError(onError);
-        }
-
         public static Check<T> CheckProperty<T>(this IValidator result, T value, Action<Error> onError = null, [CallerMemberName] string key = null, bool clear = true)
         {
             return result.CheckValue(value, key, onError, clear);

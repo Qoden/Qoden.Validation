@@ -2,7 +2,12 @@
 {
     public class ImmediateValidator : NonCollectingValidator
     {
-        public static readonly ImmediateValidator Instance = new ImmediateValidator();
+        public static readonly ImmediateValidator Instance = new ImmediateValidator(false);
+        public static readonly ImmediateValidator SkipNullInstance = new ImmediateValidator(true);
+
+        private ImmediateValidator(bool skipNulls) : base(skipNulls)
+        {
+        }
 
         public override void Add(Error error)
         {

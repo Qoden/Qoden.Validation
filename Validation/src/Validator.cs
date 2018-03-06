@@ -19,11 +19,13 @@ namespace Qoden.Validation
 
         IEnumerable<Error> Errors { get; }
 
-        bool ThrowImmediately { get; set; }
+        bool ThrowImmediately { get; }
 
         string ErrorKeyPrefix { get; set; }
 
         IEnumerable<Error> ErrorsForKey(string key);
+
+        Check<T> CheckValue<T>(T value, string key = null, Action<Error> onError = null, bool clear = true);        
     }
 
     public class ValidatorScope : IDisposable
@@ -52,11 +54,23 @@ namespace Qoden.Validation
     {
         private List<Error> _errors = new List<Error>();
 
+        public bool ThrowImmediately { get; }
+        
+        public bool SkipNulls { get; }
+
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+
         public bool IsValid => _errors.Count == 0;
 
         public bool HasErrors => _errors.Count > 0;
 
         public string ErrorKeyPrefix { get; set; } = null;
+
+        public Validator(bool throwImmediately = false, bool skipNulls = false)
+        {
+            ThrowImmediately = throwImmediately;
+            SkipNulls = skipNulls;
+        }
 
         public void Add(Error error)
         {
@@ -98,13 +112,25 @@ namespace Qoden.Validation
             return _errors.FindAll(e => e.Key == key);
         }
 
-        public bool ThrowImmediately { get; set; }
-
-        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
-
         public IEnumerable GetErrors(string key)
         {
             return IsNullOrEmpty(key) ? Errors : ErrorsForKey(key);
+        }
+        
+        public Check<T> CheckValue<T>(T value, string key = null, Action<Error> onError = null, bool clear = true)
+        {
+            if (clear)
+            {
+                Clear(key);
+            }
+
+            IValidator validator = this;
+            if (SkipNulls && value == null)
+            {
+                validator = DevNullValidator.Instance;                
+            }
+            
+            return new Check<T>(value, key, validator).OnError(onError);
         }
     }
 
