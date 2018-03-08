@@ -47,6 +47,7 @@ namespace Qoden.Validation.AspNetCore
                 if (kv.Key == "Validator") continue;
                 if (kv.Key == ApiError.ErrorCodeKey) continue;
                 if (kv.Key == "Exception") continue;
+                if (kv.Key == "StatusCode") continue;
                 if (kv.Key == "Key" && string.IsNullOrEmpty(kv.Value.ToString())) continue;
 
                 if (apiError.Data == null)
