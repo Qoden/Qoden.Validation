@@ -18,11 +18,13 @@ namespace Qoden.Validation.AspNetCore
         /// </summary>
         /// <param name="code">Code (required) (default to &quot;unknown_error&quot;)</param>
         /// <param name="message">Message (required)</param>
-        public ApiError(string code, string message)
+        /// <param name="statusCode"></param>
+        public ApiError(string code, string message, int statusCode = 400)
         {
             Code = code ?? throw new ArgumentException("Code is a required property for Error and cannot be null");
             Message = message ?? throw new ArgumentException(
                           "Message is a required property for Error and cannot be null");
+            StatusCode = statusCode;
         }
 
         [JsonExtensionData]
@@ -40,24 +42,7 @@ namespace Qoden.Validation.AspNetCore
         [DataMember(Name = "message")]
         public string Message { get; set; }
 
-        public int StatusCode
-        {
-            get
-            {
-                if (Data != null)
-                {
-                    if (Data.TryGetValue(StatusCodeKeySnake, out var statusCode))
-                    {
-                        if (Int32.TryParse(statusCode.ToString(), out var code))
-                        {
-                            return code;
-                        }
-                    }    
-                }
-
-                return (int)HttpStatusCode.BadRequest;
-            }
-        }
+        public int StatusCode { get; }
     }
 
     [DataContract]
