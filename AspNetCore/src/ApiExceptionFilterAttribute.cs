@@ -32,7 +32,7 @@ namespace Qoden.Validation.AspNetCore
                     {
                         StatusCode = StatusCodes.Status400BadRequest
                     };
-                    _logger.LogDebug("Error: {exception}", e);
+                    _logger.LogWarning(e, "Error: {error}", apiErrors);
                 }
 
                     break;
@@ -44,7 +44,7 @@ namespace Qoden.Validation.AspNetCore
                     {
                         StatusCode = apiError.StatusCode
                     };
-                    _logger.LogDebug("Error: {exception}", e);
+                    _logger.LogWarning(e, "Error: {error}", apiError);
                 }
                     break;
                 default:
@@ -60,7 +60,7 @@ namespace Qoden.Validation.AspNetCore
                     {
                         StatusCode = StatusCodes.Status500InternalServerError
                     };
-                    _logger.LogWarning("Unexpected error: {exception}", e);
+                    _logger.LogError(e, "Unexpected error");
                 }
                     break;
             }
