@@ -74,5 +74,30 @@ namespace Qoden.Validation.AspNetCore
 
             return apiError;
         }
+        
+        public static Error ToError(this ApiError apiError)
+        {
+            var error = new Error();
+
+            if (!string.IsNullOrWhiteSpace(apiError.Code))
+                error.Add(ApiError.ErrorCodeKey, apiError.Code);
+            if (apiError.StatusCode != 0)
+                error.Add(ApiError.StatusCodeKey, apiError.StatusCode);
+            if (!string.IsNullOrWhiteSpace(apiError.Message))
+                error.MessageFormat = apiError.Message;
+            if (apiError.Data != null)
+            {
+                foreach (var data in apiError.Data)
+                    error.Add(data.Key, data.Value);
+            }
+
+            return error;
+        }
+
+        public static bool IsErrorCode(this Error error, string code)
+        {
+            return error.TryGetValue(ApiError.ErrorCodeKey, out var errorCode) &&
+                   errorCode.ToString() == code.ToSnakeCase();
+        }
     }
 }
