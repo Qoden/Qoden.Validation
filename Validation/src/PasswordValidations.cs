@@ -5,14 +5,15 @@ namespace Qoden.Validation
 {
     public static class PasswordValidations
     {
-        public static Regex Password = new Regex("^\\S+$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        public const string ErrorPasswordPattern = @"[\x00-\x1F]";
 
         public static bool IsPassword(string str)
         {
-            return str != null && Password.IsMatch(str);
+            if (str == null) return false; 
+            return str.Length > 0 && !Regex.IsMatch(str, ErrorPasswordPattern);
         }
 
-        public const string IsPasswordErrorMessage = "{Key} should not contain whitespace symbols";
+        public const string IsPasswordErrorMessage = "{Key} should not contain characters(ASCII 0-31) symbols";
 
         public static Check<string> IsPassword(this Check<string> check, string message = IsPasswordErrorMessage,
             Action<Error> onError = null)
