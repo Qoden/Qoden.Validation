@@ -6,7 +6,7 @@
     <PackageId>Qoden.Validation</PackageId>
     <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81</PackageTargetFallback>
     <IncludeSymbols>true</IncludeSymbols>
-    <PackageVersion>1.0.5</PackageVersion>
+    <PackageVersion>1.0.6</PackageVersion>
   </PropertyGroup>
   <ItemGroup>
     <None Include="Qoden.Validation.csproj" />
