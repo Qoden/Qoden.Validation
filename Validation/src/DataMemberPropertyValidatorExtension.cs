@@ -16,15 +16,7 @@ namespace Qoden.Validation
         {
             var dataProperty = PropertyName(property);
             var dataMember = dataProperty.GetCustomAttribute<DataMemberAttribute>();
-
-            Assert.Argument(dataMember, "property")
-                .NotNull("Property {PropertyName} does not have DataMember attribute",
-                    e => { e.Add("PropertyName", dataProperty.Name); });
-            var name = dataMember.Name;
-            if (string.IsNullOrEmpty(name)) 
-            {
-                name = dataProperty.Name;
-            }
+            var name = dataMember?.Name ?? dataProperty.Name;
             var value = (T) Inspection.GetValue(dto, dataProperty);
             return validator.CheckValue(value, name, onError, clear);
         }
@@ -34,18 +26,8 @@ namespace Qoden.Validation
             Action<Error> onError = null, bool clear = true)
         {
             var dataProperty = PropertyName(property);
-            var propertyName = dataProperty.Name;
-
             var dataMember = dataProperty.GetCustomAttribute<ColumnAttribute>();
-
-            Assert.Argument(dataMember, "property")
-                .NotNull("Property {PropertyName} does not have Column attribute",
-                    e => { e.Add("PropertyName", propertyName); });
-            var name = dataMember.Name;
-            if (string.IsNullOrEmpty(name))
-            {
-                name = dataProperty.Name;
-            }
+            var name = dataMember?.Name ?? dataProperty.Name;
             var value = (T) Inspection.GetValue(dto, dataProperty);
             return validator.CheckValue(value, name, onError, clear);
         }

@@ -37,12 +37,11 @@ namespace Qoden.Validation.Test
 
         [TestMethod]
         public void CheckNonDataMember()
-        {
+        {            
             var dto = new Dto();
-            XAssert.ThrowsException<ArgumentNullException>(() =>
-            {
-                Validator.CheckDataMember(dto, x => x.NonMember).NotNull();
-            });
+            Validator.CheckDataMember(dto, x => x.NonMember).NotNull();  
+            var error = Validator.ErrorForKey("NonMember");
+            XAssert.IsNotNull(error);          
         }
     }
 }
