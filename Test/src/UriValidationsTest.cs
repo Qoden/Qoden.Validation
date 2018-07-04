@@ -15,15 +15,15 @@ namespace Qoden.Validation.Test
 
             Validator.CheckValue("http://google.com").IsAbsoluteUri();
             XAssert.IsTrue(Validator.IsValid);
+
+            Validator.CheckValue("/path/some").IsAbsoluteUri();
+            XAssert.IsTrue(Validator.IsValid); //File Uri
         }
 
         [TestMethod]
         public void RelativeUri()
         {
             Validator.CheckValue(new Uri("/path/some", UriKind.Relative)).IsAbsoluteUri();
-            XAssert.IsFalse(Validator.IsValid);
-
-            Validator.CheckValue("/path/some").IsAbsoluteUri();
             XAssert.IsFalse(Validator.IsValid);
         }
 
