@@ -18,7 +18,7 @@
     <ProjectReference Include="..\Validation\Qoden.Validation.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.0" />
-    <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.0-preview1-final" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.0-preview1-final" />
   </ItemGroup>
 </Project>
