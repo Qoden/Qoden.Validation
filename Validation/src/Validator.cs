@@ -69,7 +69,7 @@ namespace Qoden.Validation
             var currentErrors = Errors.Select((e) => { e.Key = _key; return e; });
             var globalErrors = _globalValidator.ErrorsForKey(_key);
 
-            if (currentErrors.SequenceEqual(globalErrors)) return;
+            if (globalErrors.All(currentErrors.Contains) && globalErrors.Count() == currentErrors.Count()) return;
             _globalValidator.ReplaceErrorsForKey(_key, currentErrors.ToList());
         }
     }
