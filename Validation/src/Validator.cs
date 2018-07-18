@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Collections;
 using static System.String;
 using Qoden.Util;
+using System.Runtime.CompilerServices;
 
 namespace Qoden.Validation
 {
@@ -26,6 +27,8 @@ namespace Qoden.Validation
         IEnumerable<Error> ErrorsForKey(string key);
 
         Check<T> CheckValue<T>(T value, string key = null, Action<Error> onError = null, bool clear = true);        
+
+        void ReplaceErrorsForKey(string key, List<Error> errors);
     }
 
     public class ValidatorScope : IDisposable
@@ -47,6 +50,27 @@ namespace Qoden.Validation
         public void Dispose()
         {
             _validator.ErrorKeyPrefix = _oldPrefix;
+        }
+    }
+
+    public class PropertyValidator : Validator, IDisposable
+    {
+        private readonly IValidator _globalValidator;
+        private readonly string _key;
+
+        public PropertyValidator(IValidator globalValidator, [CallerMemberName] string key = null)
+        {
+            _globalValidator = globalValidator ?? throw new ArgumentNullException(nameof(globalValidator));
+            _key = key;
+        }
+
+        public void Dispose()
+        {
+            var currentErrors = Errors.Select((e) => { e.Key = _key; return e; });
+            var globalErrors = _globalValidator.ErrorsForKey(_key);
+
+            if (currentErrors.SequenceEqual(globalErrors)) return;
+            _globalValidator.ReplaceErrorsForKey(_key, currentErrors.ToList());
         }
     }
 
@@ -82,6 +106,13 @@ namespace Qoden.Validation
             }
             _errors.Add(error);
             ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(error.Key));
+        }
+
+        public void ReplaceErrorsForKey(string key, List<Error> errors)
+        {
+            _errors.RemoveAll((e) => e.Key == key);
+            _errors.AddRange(errors);
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(key));
         }
 
         public void Clear()

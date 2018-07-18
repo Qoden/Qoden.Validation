@@ -70,5 +70,10 @@ namespace Qoden.Validation
             
             return new Check<T>(value, key, validator).OnError(onError);
         }
+
+        public void ReplaceErrorsForKey(string key, List<Error> errors)
+        {
+            throw new InvalidOperationException();
+        }
     }
 }

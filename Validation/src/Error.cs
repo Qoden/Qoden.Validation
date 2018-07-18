@@ -116,7 +116,18 @@ namespace Qoden.Validation
                 return _info[key];
             }
         }
-    }
+
+		public override bool Equals(object obj)
+		{
+            if (obj == null || GetType() != obj.GetType()) return false;
+            Error err = (Error)obj;
+
+            if (!_key.Equals(err._key)) return false;
+            if (!_messageFormat.Equals(err._messageFormat)) return false;
+            if (!_info.Equals(err._info)) return false;
+            return true;
+		}
+	}
 
     public class ErrorException : Exception
     {
