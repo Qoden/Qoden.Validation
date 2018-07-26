@@ -41,8 +41,18 @@ namespace Qoden.Validation
             }
             return check;
         }
+        
+        public const string NotDefaultMessage = "{Key} cannot be equivalent to default value";
 
-
+        public static Check<T> NotDefault<T>(this Check<T> check, string message = NotDefaultMessage, Action<Error> onError = null)
+        {
+            if (check.Value.Equals(default(T)))
+            {
+                check.FailValidator(new Error(message) {{ "Value", default(T) }}, onError);
+            }
+            return check;
+        }
+        
         public static Check<bool> IsTrue(this Check<bool> check, string message = EqualityMessage, Action<Error> onError = null)
         {
             if (!check.Value)
