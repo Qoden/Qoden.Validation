@@ -49,6 +49,13 @@ namespace Qoden.Validation.AspNetCore
     public class ErrorResponse
     {
         /// <summary>
+        /// Default constructor for deserialization
+        /// </summary>
+        public ErrorResponse()
+        {
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ErrorResponse" /> class.
         /// </summary>
         /// <param name="errors">Errors (required).</param>
