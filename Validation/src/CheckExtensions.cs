@@ -1,4 +1,5 @@
 using System;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 
 namespace Qoden.Validation
@@ -19,6 +20,22 @@ namespace Qoden.Validation
             onError?.Invoke(error);
             error.Add("Validator", validator);
             check.Fail(error);
+        }
+
+        private const string customValidationMessage = "Object didn't pass validation"; 
+        public static Check<T> CustomValidation<T>(this Check<T> check, Func<T, bool> validatorFunc, string message = customValidationMessage, 
+                                                      Action<Error> onError = null)
+        {
+            var isValid = validatorFunc(check.Value);
+            if (!validatorFunc(check.Value))
+            {
+                var error = new Error(message)
+                {
+                    {"Value", check.Value}
+                };
+                check.FailValidator(error, onError);
+            }
+            return check;
         }
     }
 }
