@@ -20,5 +20,19 @@ namespace Qoden.Validation
             error.Add("Validator", validator);
             check.Fail(error);
         }
+
+        public static Check<T> CustomValidation<T>(this Check<T> check, Func<T, bool> validatorFunc, string message = "Object didn't pass validation", 
+                                                      Action<Error> onError = null)
+        {
+            if (!validatorFunc(check.Value))
+            {
+                var error = new Error(message)
+                {
+                    {"Value", check.Value}
+                };
+                check.FailValidator(error, onError);
+            }
+            return check;
+        }
     }
 }

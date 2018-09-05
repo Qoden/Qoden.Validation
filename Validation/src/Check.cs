@@ -95,7 +95,7 @@ namespace Qoden.Validation
         /// </summary>
         public static Check<T> Value<T>(T value, string key = null, Action<Error> onError = null, IValidator validator = null)
         {
-            return new Check<T>(value, key, validator).OnError(onError);
+            return new Check<T>(value, key, validator ?? ImmediateValidator.Instance).OnError(onError);
         }
     }
 }
