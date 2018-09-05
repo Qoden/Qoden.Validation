@@ -22,11 +22,9 @@ namespace Qoden.Validation
             check.Fail(error);
         }
 
-        private const string customValidationMessage = "Object didn't pass validation"; 
-        public static Check<T> CustomValidation<T>(this Check<T> check, Func<T, bool> validatorFunc, string message = customValidationMessage, 
+        public static Check<T> CustomValidation<T>(this Check<T> check, Func<T, bool> validatorFunc, string message = "Object didn't pass validation", 
                                                       Action<Error> onError = null)
         {
-            var isValid = validatorFunc(check.Value);
             if (!validatorFunc(check.Value))
             {
                 var error = new Error(message)
