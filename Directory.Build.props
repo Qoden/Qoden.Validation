@@ -1,0 +1,6 @@
+<Project>
+	<PropertyGroup>
+		<PackageVersion>1.0.8</PackageVersion>
+	</PropertyGroup>
+	<Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+</Project>

@@ -5,7 +5,7 @@
     <AssemblyName>Qoden.Validation</AssemblyName>
     <PackageId>Qoden.Validation</PackageId>
     <IncludeSymbols>true</IncludeSymbols>
-    <PackageVersion>1.0.6</PackageVersion>
+    <PackageOutputPath Condition="$(LocalNugetFeed) != ''">$(LocalNugetFeed)</PackageOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <None Include="Qoden.Validation.csproj" />
