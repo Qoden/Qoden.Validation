@@ -18,6 +18,6 @@
     <ProjectReference Include="..\Validation\Qoden.Validation.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.0-preview1-final" />
   </ItemGroup>
 </Project>
