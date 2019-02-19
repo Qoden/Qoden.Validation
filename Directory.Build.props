@@ -1,6 +1,9 @@
 <Project>
 	<PropertyGroup>
 		<PackageVersion>1.0.8</PackageVersion>
+        <DefaultBuildPropsPath>
+            $([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))
+        </DefaultBuildPropsPath>
 	</PropertyGroup>
-	<Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+    <Import Project="$(DefaultBuildPropsPath)" Condition="Exists('$(DefaultBuildPropsPath)')" />
 </Project>
